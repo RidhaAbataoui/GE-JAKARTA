@@ -1,0 +1,5 @@
+Don't forget to change MYSQL UserName and Password in the class DBConnection.java in the project !!!!!!
+
+Account information :
+	UserName : user
+	Password : user8005

@@ -1,0 +1,81 @@
+CREATE DATABASE IF NOT EXISTS DBecole;
+
+USE DBecole;
+
+CREATE TABLE IF NOT EXISTS Classe(
+    id_classe INT PRIMARY KEY AUTO_INCREMENT,
+    nombre_etudiant INT,
+    anneScolaire VARCHAR(20),
+    filier VARCHAR(30),
+    niveux VARCHAR(30)
+);
+
+CREATE TABLE IF NOT EXISTS Professeur(
+    id_prof INT PRIMARY KEY AUTO_INCREMENT,
+    Nom VARCHAR(20),
+    Prenom VARCHAR(20),
+    Date_Naissance DATE,
+    Email VARCHAR(40),
+    CIN  VARCHAR(15),
+    Sujet VARCHAR(20)
+);
+
+CREATE TABLE IF NOT EXISTS Etudiant(
+    id_etd INTEGER PRIMARY KEY AUTO_INCREMENT,
+    id_classe INTEGER,
+    nom VARCHAR(20),
+    prenom VARCHAR(20),
+    date_naissance DATE,
+    CNE VARCHAR(50) UNIQUE,
+    si_respo BOOLEAN,
+    FOREIGN KEY (id_classe) REFERENCES classe(id_classe)
+);
+
+CREATE TABLE IF NOT EXISTS Examinier(
+    id_etd INT,
+    id_prof INT,
+    note INT,
+    FOREIGN KEY (id_etd) REFERENCES Etudiant(id_etd),
+    FOREIGN KEY (id_prof) REFERENCES Professeur(id_prof)
+);
+
+CREATE TABLE IF NOT EXISTS Enseigner(
+    id_classe INT,
+    id_prof INT,
+    FOREIGN KEY (id_classe) REFERENCES classe(id_classe),
+    FOREIGN KEY (id_prof) REFERENCES Professeur(id_prof)
+);
+
+CREATE TABLE IF NOT EXISTS UserTable(
+    ID INT NOT NULL AUTO_INCREMENT,
+    UserName VARCHAR(20),
+    Password VARCHAR(20),
+    ConnectionNumber INT DEFAULT 0,
+    PRIMARY KEY(ID)
+);
+
+INSERT INTO Classe(nombre_etudiant,anneScolaire,filier,niveux) VALUES(20,"2023/2024","Science math","premier annee"),
+                                                                      (30,"2023/2024","Science physic","premier annee"),
+                                                                      (25,"2023/2024","Science math","deuxieme annee"),
+                                                                      (35,"2023/2024","economie","premier annee"),
+                                                                      (28,"2023/2024","Biologie","deuxieme annee");
+                                                                      
+INSERT INTO Professeur(Nom,Prenom,Date_Naissance,Email,CIN,Sujet) 
+                         VALUES("Ahmed","El Fassi","1997-03-28","AhmedEl@gmail.com","LP7368","Math"),
+                         ("Khalid","Idrissi","1995-10-30","kalid928@gmail.com","LM8272","Physique"),
+                         ("Kawtar","Alami","1999-01-04","kawtar662@gmail.com","CJ8271","Arabic"),
+                         ("Alae","Hassan","1989-07-15","Alae76@gmail.com","LF6280","Francais"),
+                         ("Marwa","Tahiri","1996-12-26","marwa872@gmail.com","PA2568","Anglais");
+
+INSERT INTO Etudiant(id_classe,nom,prenom,date_naissance,CNE,si_respo)
+                        VALUES(1,"Imane","Cherkaoui","2002-04-23","P761782",true),
+                        (1,"Omar","Filali","2002-11-05","P52781",false),
+                        (2,"Hassan","Daoudi","2002-09-17","P938742",true),
+                        (2,"Amir","Chakir","2002-12-09","P56534",false),
+                        (3,"Fatima","El Alami","2002-06-12","P56420",true);
+                        
+INSERT INTO Examinier VALUES(1,1,15),(2,1,10),(3,5,9),(1,4,16),(5,1,8);
+
+INSERT INTO Enseigner VALUES(1,1),(2,5),(1,4),(2,2),(3,1);
+
+INSERT INTO UserTable(UserName,Password) VALUES("user","user8005");
